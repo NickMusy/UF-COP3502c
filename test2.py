@@ -1,0 +1,1 @@
+print(f'1. Addition\n2. {operand_1 + operand_2}Subtraction\n')
