@@ -17,20 +17,28 @@ def main():
     cards = [['ACE', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING'],[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]]
     
     rng = p1.P1Random()
+    new_card = rng.next_int(13) + 1
+    player_hand += cards[1][new_card - 1]
 
     print(f'START GAME #{game_num}\n')
-
+    print('Your card is a '+cards[0][new_card - 1]+'!')
+    print(f'Your hand is: {player_hand}\n')
+    print(menu)
     #while loop so that the game will continue for as long as the player wants to play
 
     while game_continue:
 
-        #creates a new value from p1.random and sets it equal to the player's hand
 
-        new_card = rng.next_int(13) + 1
 
-        #adds the new card value to the player's hand
 
-        player_hand += cards[1][new_card - 1]
+# takes an input from the player of the menu options
+
+        menu_select = int(input('Choose an option: '))
+        print()
+# end input
+
+# this block of code is for checking bj start bj check
+
 
         if player_hand == 21:
             print('Your card is a '+cards[0][new_card - 1]+'!')
@@ -41,22 +49,14 @@ def main():
             player_hand = 0
             game_num += 1
             print(f'START GAME #{game_num}\n')
-                    
-        print('Your card is a '+cards[0][new_card - 1]+'!')
-        print(f'Your hand is: {player_hand}\n')
+            continue
+# end bj check
 
-        if player_hand < 21:
-            print(menu)
 
-        #takes an input from the player of the menu options
 
-            menu_select = int(input('Choose an option: '))
-            print()
-        
-        else:
-            break
+# using a match case statement to more easily format how the program will
+# progress when a menu selection is picked
 
-        #using a match case statement to more easily format how the program will progress when a menu selection is picked
 
         match menu_select:
 
@@ -101,14 +101,45 @@ def main():
                 print(f'Number of tie games: {tie_games}')
                 print(f'Total # of games played is: {game_num}')
                 print(f'Percentage of Player wins: {player_wins / game_num}%')
-                print(menu)
                 
             case 4:
                 exit()
                 
             case _:
-                print('Invalid input!\nPlease enter an integer value between 1 and 4.')
+                print('Invalid input!\nPlease enter an integer value between 1 and 4.\n')
+                print(menu)
+                continue
+        #creates a new value from p1.random and sets it equal to the player's hand
 
+        new_card = rng.next_int(13) + 1
+
+        #adds the new card value to the player's hand
+
+        player_hand += cards[1][new_card - 1]
+        
+#print hand start
+                    
+        print('Your card is a '+cards[0][new_card - 1]+'!')
+        print(f'Your hand is: {player_hand}\n')
+
+# end print hand
+
+# this block of code is for checking bj start bj check
+
+
+        if player_hand == 21:
+            print('Your card is a '+cards[0][new_card - 1]+'!')
+            print(f'Your hand is: {player_hand}\n')
+
+            win(False,False,False,False,True)
+            player_wins += 1
+            player_hand = 0
+            game_num += 1
+            print(f'START GAME #{game_num}\n')
+            continue
+# end bj check
+
+        print(menu)
 
 #defining a global win variable in order to make the case arguments less lengthy
 
