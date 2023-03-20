@@ -34,45 +34,96 @@ def main():
             exit()
     
         elif option == 1:
+            prev_option = 1
             filename = input('Enter name of file to load: ')
             current_image = ConsoleGfx.load_file(filename)
             print()
 
         elif option == 2:
+            prev_option = 2
             current_image = ConsoleGfx.test_image
             print('Test image data loaded.')
             print()
 
         elif option == 3:
+            prev_option = 3
             image_data = (input('Enter an RLE string to be decoded: '))
-            current_image = string_to_rle(image_data)
-            print()
-
-        elif option == 4:
-            image_data = input('Enter the hex string holding RLE data: ')
-            new_format = string_to_data(image_data)
+            image_data = image_data.lower()
+            new_format = string_to_rle(image_data)
             current_image = decode_rle(new_format)
             print()
 
-        elif option == 5:
+        elif option == 4:
+            prev_option = 4
             image_data = input('Enter the hex string holding RLE data: ')
+            image_data = image_data.lower()
+            new_format = string_to_data(image_data)
+            current_image = decode_rle(new_format)         
+            print()
+
+        elif option == 5:
+            prev_option = 5
+            image_data = input('Enter the hex string holding flat data: ')
+            image_data = image_data.lower()
             current_image = string_to_data(image_data)
             print()
 
         elif option == 6:
-            ConsoleGfx.display_image(current_image)
+            print('Displaying image...')
+            if current_image == []:
+                print('(no data)')
+            else:
+                ConsoleGfx.display_image(current_image)
 
         elif option == 7:
-            print()
+            if current_image == []:
+                print('RLE Representation: (no data)')
+            elif prev_option == 5:
+                current_image = to_rle_string(current_image)
+                print('RLE Representation:', current_image, end='\n')
+            else:
+                encoded_data = encode_rle(current_image)
+                current_image = to_rle_string(encoded_data)
+                print('RLE Representation:', current_image, end='\n')
 
         elif option == 8:
-            print()
+            if current_image == []:
+                print('RLE hex values: (no data)')
+            elif prev_option == 5:
+                current_image = to_hex_string(current_image)
+                print('RLE hex values:', current_image, end='\n')
+            else:
+                current_image = to_hex_string(current_image)
+                print('RLE hex values:', current_image, end='\n')
 
         elif option == 9:
-            print()
+            if current_image == []:
+                print('Flat hex values: (no data)')
+            elif prev_option == 5:
+                current_image = to_hex_string(current_image)
+                print('Flat hex values:', current_image, end='\n')
+            else:
+                current_image = to_hex_string(current_image)
+                string_to_data
+
+                print('Flat hex values:', current_image, end='\n')
 
         else:
-            print('Error!')
+            print('Error! Invalid input.')
+
+        print('RLE Menu')
+        print('--------')
+        print('0. Exit')
+        print('1. Load File')
+        print('2. Load Test Image')
+        print('3. Read RLE String')
+        print('4. Read RLE Hex String')
+        print('5. Read Data Hex String')
+        print('6. Display Image')
+        print('7. Display RLE String')
+        print('8. Display Hex RLE Data')
+        print('9. Display Hex Flat Data')
+        print()
 
 
 def to_hex_string(numbers):
