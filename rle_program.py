@@ -44,17 +44,23 @@ def main():
             print()
 
         elif option == 3:
+            image_data = (input('Enter an RLE string to be decoded: '))
+            current_image = string_to_rle(image_data)
             print()
 
         elif option == 4:
+            image_data = input('Enter the hex string holding RLE data: ')
+            new_format = string_to_data(image_data)
+            current_image = decode_rle(new_format)
             print()
 
         elif option == 5:
+            image_data = input('Enter the hex string holding RLE data: ')
+            current_image = string_to_data(image_data)
             print()
 
         elif option == 6:
             ConsoleGfx.display_image(current_image)
-            print()
 
         elif option == 7:
             print()
@@ -135,6 +141,56 @@ def string_to_data(data_string):
         if i in hex_digits:
             decimal_list.append(int(i, 16))
     return decimal_list
+
+def to_rle_string(rle_data:list):
+
+    hex_digits = "0123456789abcdef"
+    end_list = ''
+    count = 1
+
+    for i in rle_data:
+        if count % 2 == 0:
+            if i // 16 == 0:
+                end_list += str(hex_digits[i % 16])
+                count += 1
+                rle_data = rle_data[1:]
+                if len(rle_data) > 0:
+                    end_list += ':'
+            else:
+                end_list += str(hex_digits[i // 16] + hex_digits[i % 16])
+                count += 1
+                rle_data = rle_data[1:]
+                if len(rle_data) > 0:
+                    end_list += ':'
+        else:
+            end_list += str(i)
+            count += 1
+            rle_data = rle_data[1:]
+  
+    return(end_list)
+
+def string_to_rle(rle_string:str):
+
+    num = 1
+    decimal_list = []
+    new_list = rle_string.split(':')
+    
+    run_list = [i[:-1] for i in new_list]
+    hex_num_val = [i[-1:] for i in new_list]
+    
+    for i in hex_num_val:
+        decimal_num = int(i, 16)
+        decimal_list.append(decimal_num)
+
+    for i in decimal_list:
+        run_list.insert(num, i)
+        num += 2
+    
+    run_list = [int(i) for i in run_list]
+
+    return(run_list)
+
+
 
 if __name__ == "__main__":
     main()
