@@ -77,14 +77,14 @@ def main():
 
         elif option == 7:
             if current_image == []:
-                print('RLE Representation: (no data)')
+                print('RLE representation: (no data)')
             elif prev_option == 5:
                 current_image = to_rle_string(current_image)
-                print('RLE Representation:', current_image, end='\n')
+                print('RLE representation:', current_image, end='\n')
             else:
                 encoded_data = encode_rle(current_image)
                 current_image = to_rle_string(encoded_data)
-                print('RLE Representation:', current_image, end='\n')
+                print('RLE representation:', current_image, end='\n')
 
         elif option == 8:
             if current_image == []:
@@ -93,7 +93,8 @@ def main():
                 current_image = to_hex_string(current_image)
                 print('RLE hex values:', current_image, end='\n')
             else:
-                current_image = to_hex_string(current_image)
+                decoded_data = encode_rle(current_image)
+                current_image = to_hex_string(decoded_data)
                 print('RLE hex values:', current_image, end='\n')
 
         elif option == 9:
