@@ -1,4 +1,4 @@
-import p1_random as p1
+import Projects.p1_random as p1
 
 def main():
 

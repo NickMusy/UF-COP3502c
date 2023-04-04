@@ -1,8 +1,10 @@
-from console_gfx import ConsoleGfx
+from Projects.console_gfx import ConsoleGfx
 
 cont_program = True
 
 def main():
+
+    #Displaying start-up sequence
 
     print('Welcome to the RLE image encoder!')
     print()
@@ -25,8 +27,12 @@ def main():
     print('9. Display Hex Flat Data')
     print()
 
+    #While loop to keep the program running until manually stopped
+
     current_image = []
     while cont_program == True:
+        
+        #Menu options, where each one calls one or more functions to convert between data types
 
         option = int(input('Select a Menu Option: '))
 
@@ -112,6 +118,8 @@ def main():
         else:
             print('Error! Invalid input.')
 
+        #Printing menu again before user input
+
         print('RLE Menu')
         print('--------')
         print('0. Exit')
@@ -126,6 +134,7 @@ def main():
         print('9. Display Hex Flat Data')
         print()
 
+#Converts from RLE list type to hex string 
 
 def to_hex_string(numbers):
     hex_digits = "0123456789abcdef"
@@ -136,6 +145,8 @@ def to_hex_string(numbers):
         else:
             hex_string += hex_digits[num // 16] + hex_digits[num % 16]
     return hex_string
+
+#Counts number of runs in a list
 
 def count_runs(list):
     runs = 0
@@ -153,6 +164,7 @@ def count_runs(list):
                 previous_num = num
     return runs
 
+#RLE encodes a list of numbers and returns encoded list
 
 def encode_rle(flat_data):
     encoded_list = []
@@ -166,6 +178,8 @@ def encode_rle(flat_data):
         i += run_length
     return encoded_list
 
+#Checks how long the list of unencoded data would be
+
 def get_decoded_length(encoded_lst):
     decoded_list = []
     for i in range(0, len(encoded_lst), 2):
@@ -175,6 +189,7 @@ def get_decoded_length(encoded_lst):
             decoded_list.append(num)
     return len(decoded_list)
 
+#Decodes a list of RLE encoded data
 
 def decode_rle(rle_data):
     decoded_list = []
@@ -186,6 +201,8 @@ def decode_rle(rle_data):
         i += 2
     return decoded_list
 
+#Converts from a hex string to an RLE encoded list
+
 def string_to_data(data_string):
     hex_digits = "0123456789abcdef"
     decimal_list = []
@@ -193,6 +210,8 @@ def string_to_data(data_string):
         if i in hex_digits:
             decimal_list.append(int(i, 16))
     return decimal_list
+
+#Converts from an RLE encoded list to a delimited hex string
 
 def to_rle_string(rle_data:list):
 
@@ -220,6 +239,8 @@ def to_rle_string(rle_data:list):
             rle_data = rle_data[1:]
   
     return(end_list)
+
+#Converts back from a delimited hex string to an RLE encoded list
 
 def string_to_rle(rle_string:str):
 
